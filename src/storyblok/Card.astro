@@ -1,0 +1,77 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+// console.log(blok);
+---
+
+<div class="md:relative" {...storyblokEditable(blok)}>
+  <header
+    class="aspect-video md:ml-24 md:mb-24 overflow-hidden md:rounded-3xl rounded-t-3xl"
+  >
+    <img
+      class="w-full h-full object-cover object-top"
+      src={blok.image.filename}
+      alt=""
+    />
+  </header>
+  <footer
+    class="md:p-12 p-8 bg-neutral-900/80 backdrop-blur-3xl md:rounded-3xl rounded-b-3xl md:absolute left-0 bottom-0 z-10"
+  >
+    <div class="flex flex-col gap-4 mb-8">
+      <h3 class="text-neutral-200 md:text-3xl text-2xl font-bold">
+        {blok.label}
+      </h3>
+      <p class="text-neutral-400 md:text-lg md:w-80">{blok.text}</p>
+    </div>
+    <div class="flex">
+      {
+        blok.buttons?.map((blok: any) => {
+          return <StoryblokComponent blok={blok} />;
+        })
+      }
+    </div>
+  </footer>
+</div>
+
+<style>
+  @keyframes show {
+    from {
+      opacity: 0;
+      scale: 25%;
+    }
+
+    to {
+      opacity: 1;
+      scale: 100%;
+    }
+  }
+
+  @keyframes show2 {
+    from {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+
+  @media screen and (min-width: 769px) {
+    /* Estilos CSS para pantallas mayores a 768px */
+    footer {
+      animation: show2 linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 20%;
+    }
+
+    header {
+      animation: show linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 20%;
+    }
+  }
+</style>

@@ -1,0 +1,23 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+// console.log(blok);
+---
+
+<section id={blok.id} class="md:py-16 py-8" {...storyblokEditable(blok)}>
+  <header class="flex flex-col gap-4 md:pb-16 pb-8">
+    <h2 class="text-neutral-200 text-center md:text-5xl text-3xl font-bold">
+      {blok.headline}
+    </h2>
+    {
+      blok.lead ? (
+        <p class="text-neutral-400 text-center md:text-xl">{blok.lead}</p>
+      ) : null
+    }
+  </header>
+  <div class="grid gap-24">
+    {blok.cards?.map((blok: any) => <StoryblokComponent blok={blok} />)}
+  </div>
+</section>

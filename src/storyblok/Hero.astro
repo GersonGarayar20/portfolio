@@ -1,0 +1,26 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+// console.log(blok);
+---
+
+<section
+  class="bg-neutral-900 bg-gradient-to-r from-neutral-900 to-neutral-800 rounded-3xl aspect-video md:p-16 p-8 flex flex-col justify-center gap-8"
+  {...storyblokEditable(blok)}
+>
+  <h1 class="text-neutral-200 md:text-6xl text-4xl text-center font-bold">
+    {blok.headline}<br /><span class="text-cyan-400">{blok.subheadline}</span>
+  </h1>
+  <p class="text-neutral-400 md:text-xl text-center">
+    {blok.lead}
+  </p>
+  <div class="flex md:flex-row flex-col gap-4 justify-center items-center">
+    {
+      blok.buttons?.map((blok: any) => {
+        return <StoryblokComponent blok={blok} />;
+      })
+    }
+  </div>
+</section>
