@@ -1,0 +1,147 @@
+---
+
+---
+
+<script>
+  const d = document;
+  const containers = d.querySelectorAll(".container");
+
+  containers.forEach((container) => {
+    const image = container.querySelector(".image") as HTMLElement;
+
+    container?.addEventListener("mousemove", (e: any) => {
+      const { clientX, clientY } = e;
+      const { left, top, width, height } = container.getBoundingClientRect();
+      const offsetX = clientX - left;
+      const offsetY = clientY - top;
+
+      const rotateY = (offsetX / width - 0.5) * 10;
+      const rotateX = -(offsetY / height - 0.5) * 10;
+
+      if (image) {
+        image.style.transform = `scale(1.05) rotateY(${rotateY}deg) rotateX(${rotateX}deg) translateX(${rotateX}px) translateY(${rotateY}px)`;
+      }
+    });
+
+    container?.addEventListener("mouseout", () => {
+      if (image) {
+        image.style.transform = "rotateY(0deg) rotateX(0deg)";
+      }
+    });
+  });
+</script>
+
+<style>
+  .container {
+    perspective: 1000px;
+  }
+  .image {
+    transition: 0.2s ease-out;
+  }
+</style>
+
+<li class="md:relative">
+  <a href="">
+    <div class="container card-image aspect-video">
+      <img
+        class="image w-full h-full object-cover md:rounded-3xl rounded-t-3xl"
+        src="https://a.storyblok.com/f/263159/960x540/048e140e49/nike.png"
+        alt=""
+      />
+    </div>
+  </a>
+  <div
+    class="card-content md:absolute md:w-96 bg-neutral-900/80 backdrop-blur-3xl md:p-12 p-6 md:rounded-3xl rounded-b-3xl"
+  >
+    <div class="flex flex-col gap-4">
+      <h3 class="text-neutral-200 md:text-4xl text-2xl font-semibold">Nike</h3>
+      <p class="text-neutral-400 md:text-lg mb-8">
+        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+      </p>
+      <a
+        class="text-violet-400 md:text-base text-sm flex gap-2 hover:gap-4 transition-all duration-200 ease-out"
+        href=""
+        >Ver proyecto<svg
+          class="fill-violet-400"
+          xmlns="http://www.w3.org/2000/svg"
+          width="24"
+          height="24"
+          viewBox="0 0 24 24"
+          ><path
+            d="m11.293 17.293 1.414 1.414L19.414 12l-6.707-6.707-1.414 1.414L15.586 11H6v2h9.586z"
+          ></path></svg
+        ></a
+      >
+    </div>
+  </div>
+</li>
+
+<style is:global>
+  @keyframes show-image {
+    from {
+      opacity: 0;
+      scale: 80%;
+    }
+
+    to {
+      opacity: 1;
+      scale: 100%;
+    }
+  }
+
+  @keyframes slider-right {
+    from {
+      opacity: 0;
+      transform: translateX(100px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+
+  @keyframes slider-left {
+    from {
+      opacity: 0;
+      transform: translateX(-100px);
+    }
+
+    to {
+      opacity: 1;
+      transform: translateX(0px);
+    }
+  }
+
+  @media screen and (min-width: 768px) {
+    /* Estilos CSS para pantallas mayores a 768px */
+
+    ul li:nth-child(odd) {
+      @apply pr-24 pb-24;
+    }
+
+    ul li:nth-child(odd) .card-content {
+      @apply right-0 bottom-0;
+      animation: slider-right linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 20%;
+    }
+
+    ul li:nth-child(even) {
+      @apply pl-24 pb-24;
+    }
+
+    ul li:nth-child(even) .card-content {
+      @apply left-0 bottom-0;
+      animation: slider-left linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 20%;
+    }
+
+    .card-image {
+      animation: show-image linear both;
+      animation-timeline: view();
+      animation-range: entry 10% cover 20%;
+    }
+  }
+</style>
