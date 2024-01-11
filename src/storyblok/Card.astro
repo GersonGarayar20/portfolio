@@ -1,3 +1,10 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+// console.log(blok);
+---
+
 <script>
   const d = document;
   const containers = d.querySelectorAll(".container");
@@ -36,13 +43,13 @@
   }
 </style>
 
-<li class="md:relative">
+<li class="md:relative" {...storyblokEditable(blok)}>
   <a href="">
     <div class="container card-image aspect-video">
       <img
         class="image w-full h-full object-cover md:rounded-3xl rounded-t-3xl"
-        src="https://a.storyblok.com/f/263159/960x540/048e140e49/nike.png"
-        alt=""
+        src={blok.image.filename}
+        alt={blok.image.alt}
       />
     </div>
   </a>
@@ -50,13 +57,16 @@
     class="card-content md:absolute md:w-96 bg-neutral-900/80 backdrop-blur-3xl md:p-12 p-6 md:rounded-3xl rounded-b-3xl"
   >
     <div class="flex flex-col gap-4">
-      <h3 class="text-neutral-200 md:text-4xl text-2xl font-semibold">Nike</h3>
+      <h3 class="text-neutral-200 md:text-4xl text-2xl font-semibold">
+        {blok.title}
+      </h3>
       <p class="text-neutral-400 md:text-lg mb-8">
-        Lorem ipsum dolor sit amet consectetur adipisicing elit.
+        {blok.description}
       </p>
       <a
         class="text-violet-400 md:text-base text-sm flex gap-2 hover:gap-4 transition-all duration-200 ease-out"
-        href=""
+        href={blok.link.url}
+        target="_blank"
         >Ver proyecto<svg
           class="fill-violet-400"
           xmlns="http://www.w3.org/2000/svg"

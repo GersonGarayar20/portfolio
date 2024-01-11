@@ -1,0 +1,24 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+// console.log(blok);
+---
+
+<section
+  class="md:py-24 py-16 flex flex-col md:gap-24 gap-16"
+  {...storyblokEditable(blok)}
+>
+  <header class="flex flex-col gap-4">
+    <h2 class="text-neutral-200 md:text-6xl text-4xl font-semibold">
+      {blok.headline}
+    </h2>
+    <p class="text-neutral-400 md:text-xl">
+      {blok.lead}
+    </p>
+  </header>
+  <div>
+    {blok.content?.map((blok: any) => <StoryblokComponent blok={blok} />)}
+  </div>
+</section>

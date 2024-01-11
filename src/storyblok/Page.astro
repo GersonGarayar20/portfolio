@@ -1,0 +1,19 @@
+---
+import Hero from "../components/Hero.astro";
+import Footer from "../components/Footer.astro";
+
+import { storyblokEditable } from "@storyblok/astro";
+import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
+
+const { blok } = Astro.props;
+---
+
+<main class="max-w-5xl md:px-8 px-4 mx-auto" {...storyblokEditable(blok)}>
+  <Hero />
+  {
+    blok.body?.map((blok: any) => {
+      return <StoryblokComponent blok={blok} />;
+    })
+  }
+  <Footer />
+</main>
