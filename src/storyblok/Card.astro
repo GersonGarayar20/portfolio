@@ -44,7 +44,7 @@ const { blok } = Astro.props;
 </style>
 
 <li class="md:relative" {...storyblokEditable(blok)}>
-  <a href="">
+  <a href={blok.link.url} target="_blank" rel="noreferrer">
     <div class="container card-image aspect-video">
       <img
         class="image w-full h-full object-cover md:rounded-3xl rounded-t-3xl"
@@ -67,6 +67,7 @@ const { blok } = Astro.props;
         class="text-violet-400 md:text-base text-sm flex gap-2 hover:gap-4 transition-all duration-200 ease-out"
         href={blok.link.url}
         target="_blank"
+        rel="noreferrer"
         >Ver proyecto<svg
           class="fill-violet-400"
           xmlns="http://www.w3.org/2000/svg"
