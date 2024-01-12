@@ -7,10 +7,9 @@ const { blok } = Astro.props;
 
 <script>
   const d = document;
-  const containers = d.querySelectorAll(".container");
-
+  const containers = d.querySelectorAll(".card-image-container");
   containers.forEach((container) => {
-    const image = container.querySelector(".image") as HTMLElement;
+    const image = container.querySelector(".card-image") as HTMLElement;
 
     container?.addEventListener("mousemove", (e: any) => {
       const { clientX, clientY } = e;
@@ -35,19 +34,26 @@ const { blok } = Astro.props;
 </script>
 
 <style>
-  .container {
+  .card-image-container {
     perspective: 1000px;
   }
-  .image {
+  .card-image {
     transition: 0.2s ease-out;
   }
 </style>
 
 <li class="md:relative" {...storyblokEditable(blok)}>
   <a href={blok.link.url} target="_blank" rel="noreferrer">
-    <div class="container card-image aspect-video">
+    <div class="md:block hidden card-image-container aspect-video">
       <img
-        class="image w-full h-full object-cover md:rounded-3xl rounded-t-3xl"
+        class="card-image w-full h-full object-cover md:rounded-3xl"
+        src={blok.image.filename}
+        alt={blok.image.alt}
+      />
+    </div>
+    <div class="md:hidden aspect-video">
+      <img
+        class="w-full h-full object-cover rounded-t-3xl"
         src={blok.image.filename}
         alt={blok.image.alt}
       />
@@ -145,7 +151,7 @@ const { blok } = Astro.props;
       animation-range: entry 10% cover 20%;
     }
 
-    .card-image {
+    .card-image-container {
       animation: show-image linear both;
       animation-timeline: view();
       animation-range: entry 10% cover 20%;
