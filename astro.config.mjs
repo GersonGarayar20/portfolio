@@ -14,6 +14,7 @@ export default defineConfig({
         section: "storyblok/Section",
         cardList: "storyblok/CardList",
         card: "storyblok/Card",
+        button: "storyblok/Button",
       },
     }),
     tailwind(),

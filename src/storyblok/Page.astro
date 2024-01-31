@@ -8,7 +8,16 @@ import StoryblokComponent from "@storyblok/astro/StoryblokComponent.astro";
 const { blok } = Astro.props;
 ---
 
-<main class="max-w-5xl md:px-8 px-4 mx-auto" {...storyblokEditable(blok)}>
+<main
+  class="max-w-5xl md:px-8 px-4 mx-auto relative"
+  {...storyblokEditable(blok)}
+>
+  <div class="absolute top-0 inset-x-0 -z-20">
+    <div
+      class="w-full aspect-square rounded-full -translate-y-1/2 bg-violet-950 blur-[400px]"
+    >
+    </div>
+  </div>
   <Hero />
   {
     blok.body?.map((blok: any) => {

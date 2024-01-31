@@ -1,0 +1,30 @@
+---
+import { storyblokEditable } from "@storyblok/astro";
+
+const { blok } = Astro.props;
+// console.log(blok.link);
+---
+
+<a
+  class={`btn ${blok.variant}`}
+  href={blok.link.url}
+  target="_blank"
+  rel="noreferrer"
+  {...storyblokEditable(blok)}
+>
+  {blok.label}</a
+>
+
+<style>
+  .btn {
+    @apply py-2 px-4 rounded text-sm transition-colors duration-200 ease-out;
+  }
+
+  .primary {
+    @apply bg-violet-500 hover:bg-violet-600 text-white;
+  }
+
+  .ghost {
+    @apply text-neutral-400 hover:bg-neutral-900;
+  }
+</style>
